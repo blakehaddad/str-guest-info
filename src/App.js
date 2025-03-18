@@ -4,11 +4,23 @@ function App() {
   const [config, setConfig] = useState(null);
 
   useEffect(() => {
-    fetch("/config.json")
-      .then((response) => response.json())
-      .then((data) => setConfig(data))
+    const configPath = `${process.env.PUBLIC_URL}/config.json`; // Ensures the correct base URL
+    console.log("Fetching config from:", configPath); // Debugging
+  
+    fetch(configPath)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // console.log("Config Data Loaded:", data);
+        setConfig(data);
+      })
       .catch((error) => console.error("Error loading config:", error));
   }, []);
+  
 
   if (!config) return <p>Loading...</p>;
 
@@ -33,7 +45,7 @@ function App() {
       <div style={styles.section}>
         <h2>🍽️ Local Recommendations</h2>
         <ul>
-          {config.recommendations.map((place, index) => (
+          {(config.recommendations || []).map((place, index) => (
             <li key={index}>
               <a href={place.url} target="_blank" rel="noopener noreferrer">{place.name}</a>
             </li>
