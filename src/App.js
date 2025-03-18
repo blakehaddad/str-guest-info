@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 function App() {
   const [config, setConfig] = useState(null);
 
-  useEffect(() => {
+  const fetchConfig = () => {
     const configPath = `${process.env.PUBLIC_URL}/config.json`; 
     console.log("Fetching config from:", configPath);
 
@@ -16,14 +16,23 @@ function App() {
       })
       .then((data) => setConfig(data))
       .catch((error) => console.error("Error loading config:", error));
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchConfig(); // Initial fetch
+
+    const interval = setInterval(() => {
+      fetchConfig(); // Fetch based on configured interval
+    }, (config?.refreshRateSeconds || 60) * 1000);
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [config]);
 
   if (!config) return <div style={styles.loading}>Loading...</div>;
 
   const contactNumber = process.env.REACT_APP_CONTACT_NUMBER 
   ? process.env.REACT_APP_CONTACT_NUMBER 
   : (config.contactNumber || "Via booking app");
-
 
   return (
     <div style={styles.container}>
@@ -44,19 +53,6 @@ function App() {
         <p><strong>Network:</strong> {config.wifiNetwork}</p>
         <p><strong>Password:</strong> {config.wifiPassword}</p>
       </div>
-
-      {/* <div style={styles.card}>
-        <h2>🍽️ Local Recommendations</h2>
-        <ul style={styles.list}>
-          {(config.recommendations || []).map((place, index) => (
-            <li key={index}>
-              <a href={place.url} target="_blank" rel="noopener noreferrer">
-                {place.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div> */}
 
       <div style={styles.footer}>
         <p>📞 Need anything? Contact us: <strong>{contactNumber}</strong></p>
