@@ -1,14 +1,16 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main  # Triggers deployment on every push to main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    on:
-      push:
-        branches:
-          - main  # Triggers deployment on every push to main
-
     permissions: 
-      contents: write  # ✅ This grants GitHub Actions permission to push to gh-pages
+      contents: write  # ✅ Grants GitHub Actions permission to push to gh-pages
 
     steps:
       - name: Checkout repository
@@ -31,5 +33,4 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          github_token: ${{ secrets.GI
