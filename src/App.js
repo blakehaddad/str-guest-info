@@ -19,6 +19,10 @@ function App() {
     };
   
     fetchConfig(); // Initial fetch
+
+    if (config?.propertyName) {
+      document.title = `Welcome to ${config.propertyName}`; // ✅ Updates title dynamically
+    }
   
     if (config?.refreshRateSeconds) {
       const interval = setInterval(() => {
