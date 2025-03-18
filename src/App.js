@@ -4,9 +4,9 @@ function App() {
   const [config, setConfig] = useState(null);
 
   useEffect(() => {
-    const configPath = `${process.env.PUBLIC_URL}/config.json`; // Ensures the correct base URL
-    console.log("Fetching config from:", configPath); // Debugging
-  
+    const configPath = `${process.env.PUBLIC_URL}/config.json`; 
+    console.log("Fetching config from:", configPath);
+
     fetch(configPath)
       .then((response) => {
         if (!response.ok) {
@@ -14,62 +14,104 @@ function App() {
         }
         return response.json();
       })
-      .then((data) => {
-        // console.log("Config Data Loaded:", data);
-        setConfig(data);
-      })
+      .then((data) => setConfig(data))
       .catch((error) => console.error("Error loading config:", error));
   }, []);
-  
 
-  if (!config) return <p>Loading...</p>;
+  if (!config) return <div style={styles.loading}>Loading...</div>;
+
+  const contactNumber = process.env.REACT_APP_CONTACT_NUMBER 
+  ? process.env.REACT_APP_CONTACT_NUMBER 
+  : (config.contactNumber || "Via booking app");
+
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>Welcome to {config.propertyName}!</h1>
-      <p style={styles.subtitle}>We’re excited to host you. Here’s everything you need for a great stay.</p>
-
-      <div style={styles.section}>
-        <h2>🏡 Check-In Information</h2>
-        <p>Check-in time: <strong>{config.checkInTime}</strong></p>
-        <p>Check-out time: <strong>{config.checkOutTime}</strong></p>
-        <p>Lockbox Code: <strong>{config.lockboxCode}</strong></p>
+      <div style={styles.header}>
+        <h1>🏡 Welcome to {config.propertyName}!</h1>
+        <p>We’re excited to host you. Here’s everything you need for a great stay.</p>
       </div>
 
-      <div style={styles.section}>
+      <div style={styles.card}>
+        <h2>⏰ Check-In Information</h2>
+        <p><strong>Check-in:</strong> {config.checkInTime}</p>
+        <p><strong>Check-out:</strong> {config.checkOutTime}</p>
+        <p><strong>Lockbox Code:</strong> <span style={styles.lockbox}>{config.lockboxCode}</span></p>
+      </div>
+
+      <div style={styles.card}>
         <h2>📶 Wi-Fi Details</h2>
-        <p>Network: <strong>{config.wifiNetwork}</strong></p>
-        <p>Password: <strong>{config.wifiPassword}</strong></p>
+        <p><strong>Network:</strong> {config.wifiNetwork}</p>
+        <p><strong>Password:</strong> {config.wifiPassword}</p>
       </div>
 
-      <div style={styles.section}>
+      <div style={styles.card}>
         <h2>🍽️ Local Recommendations</h2>
-        <ul>
+        <ul style={styles.list}>
           {(config.recommendations || []).map((place, index) => (
             <li key={index}>
-              <a href={place.url} target="_blank" rel="noopener noreferrer">{place.name}</a>
+              <a href={place.url} target="_blank" rel="noopener noreferrer">
+                {place.name}
+              </a>
             </li>
           ))}
         </ul>
       </div>
 
-      <p style={styles.footer}>Need anything? Contact us at <strong>{config.contactNumber}</strong>.</p>
+      <div style={styles.footer}>
+        <p>📞 Need anything? Contact us: <strong>{contactNumber}</strong>.</p>
+      </div>
     </div>
   );
 }
 
 const styles = {
   container: {
-    fontFamily: "Arial, sans-serif",
-    maxWidth: "600px",
-    margin: "auto",
+    fontFamily: "'Poppins', sans-serif",
+    maxWidth: "700px",
+    margin: "40px auto",
     textAlign: "center",
-    padding: "20px"
+    padding: "20px",
+    backgroundColor: "#fefefe",
+    borderRadius: "10px",
+    boxShadow: "0px 4px 10px rgba(0,0,0,0.1)"
   },
-  title: { color: "#ff5a5f", fontSize: "28px" },
-  subtitle: { fontSize: "18px", color: "#333" },
-  section: { backgroundColor: "#f8f8f8", padding: "15px", margin: "15px 0", borderRadius: "8px" },
-  footer: { marginTop: "20px", fontSize: "16px", fontWeight: "bold" }
+  header: {
+    backgroundColor: "#ff5a5f",
+    color: "#fff",
+    padding: "20px",
+    borderRadius: "10px 10px 0 0"
+  },
+  card: {
+    backgroundColor: "#f8f8f8",
+    padding: "15px",
+    margin: "15px 0",
+    borderRadius: "8px",
+    boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+    textAlign: "left"
+  },
+  list: {
+    listStyle: "none",
+    padding: 0
+  },
+  lockbox: {
+    backgroundColor: "#ff5a5f",
+    color: "#fff",
+    padding: "3px 8px",
+    borderRadius: "5px"
+  },
+  footer: {
+    marginTop: "20px",
+    fontSize: "16px",
+    fontWeight: "bold",
+    color: "#333"
+  },
+  loading: {
+    textAlign: "center",
+    fontSize: "20px",
+    fontWeight: "bold",
+    padding: "50px"
+  }
 };
 
 export default App;
