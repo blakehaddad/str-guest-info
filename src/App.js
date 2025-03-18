@@ -4,8 +4,11 @@ function App() {
   const [config, setConfig] = useState(null);
 
   const fetchConfig = () => {
-    const configPath = `${process.env.PUBLIC_URL}/config.json`; 
-    console.log("Fetching config from:", configPath);
+    const configPath = `${process.env.PUBLIC_URL}/config.json`;
+
+    if (config?.propertyName) {
+      document.title = `Welcome to ${config.propertyName}`; // ✅ Updates title dynamically
+    }
 
     fetch(configPath)
       .then((response) => {
