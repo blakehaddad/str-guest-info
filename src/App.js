@@ -20,13 +20,19 @@ function App() {
 
   useEffect(() => {
     fetchConfig(); // Initial fetch
-
-    const interval = setInterval(() => {
-      fetchConfig(); // Fetch based on configured interval
-    }, (config?.refreshRateSeconds || 60) * 1000);
-
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [config]);
+  
+    if (config?.refreshRate) {
+      const interval = setInterval(() => {
+        fetchConfig();
+      }, config.refreshRate * 1000);
+  
+      return () => {
+        console.log("Clearing interval to prevent duplicates.");
+        clearInterval(interval); // Ensures old intervals are removed
+      };
+    }
+  }, [config?.refreshRate]); // Only runs when refreshRate changes
+  
 
   if (!config) return <div style={styles.loading}>Loading...</div>;
 
@@ -38,7 +44,7 @@ function App() {
     <div style={styles.container}>
       <div style={styles.header}>
         <h1>🏡 Welcome to {config.propertyName}!</h1>
-        <p>We’re thrilled to have you! Here’s all the key information to make your stay smooth and enjoyable..</p>
+        <p>We’re thrilled to have you! Here’s all the key information to make your stay smooth and enjoyable.</p>
       </div>
 
       <div style={styles.card}>
