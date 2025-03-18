@@ -21,17 +21,17 @@ function App() {
   useEffect(() => {
     fetchConfig(); // Initial fetch
   
-    if (config?.refreshRate) {
+    if (config?.refreshRateSeconds) {
       const interval = setInterval(() => {
         fetchConfig();
-      }, config.refreshRate * 1000);
+      }, config.refreshRateSeconds * 1000);
   
       return () => {
         console.log("Clearing interval to prevent duplicates.");
         clearInterval(interval); // Ensures old intervals are removed
       };
     }
-  }, [config?.refreshRate]); // Only runs when refreshRate changes
+  }, [config?.refreshRateSeconds]); // Only runs when refreshRateSeconds changes
   
 
   if (!config) return <div style={styles.loading}>Loading...</div>;
