@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # Triggers deployment on every push to main
+  workflow_dispatch:  # ✅ Allows manual triggering
 
 jobs:
   build-and-deploy:
