@@ -2,6 +2,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    on:
+      push:
+        branches:
+          - main  # Triggers deployment on every push to main
+
     permissions: 
       contents: write  # ✅ This grants GitHub Actions permission to push to gh-pages
 
