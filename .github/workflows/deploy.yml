@@ -1,13 +1,9 @@
-name: Deploy React App
-
-on:
-  push:
-    branches:
-      - main  # Triggers deployment on every push to main
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions: 
+      contents: write  # ✅ This grants GitHub Actions permission to push to gh-pages
 
     steps:
       - name: Checkout repository
