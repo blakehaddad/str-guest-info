@@ -34,7 +34,7 @@ function App() {
         clearInterval(interval); // Ensures old intervals are removed
       };
     }
-  }, [config?.refreshRateSeconds]); // Only runs when refreshRateSeconds changes  
+  }, [config?.propertyName, config?.refreshRateSeconds]); // Only runs when refreshRateSeconds changes  
 
   if (!config) return <div style={styles.loading}>Loading...</div>;
 
