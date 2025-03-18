@@ -59,7 +59,7 @@ function App() {
       </div> */}
 
       <div style={styles.footer}>
-        <p>📞 Need anything? Contact us: <strong>{contactNumber}</strong>.</p>
+        <p>📞 Need anything? Contact us: <strong>{contactNumber}</strong></p>
       </div>
     </div>
   );
