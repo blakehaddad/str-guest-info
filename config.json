@@ -5,7 +5,7 @@
     "lockboxCode": "Available in app",
     "wifiNetwork": "The Lyric",
     "wifiPassword": "7930Zenobia",
-    "contactNumber": "(555) 123-4567",
+    "contactNumber": null,
     "recommendations": [
       { "name": "Best Coffee Shop", "url": "https://maps.google.com" },
       { "name": "Top Brunch Spot", "url": "https://maps.google.com" }
