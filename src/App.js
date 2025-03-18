@@ -29,7 +29,7 @@ function App() {
     <div style={styles.container}>
       <div style={styles.header}>
         <h1>🏡 Welcome to {config.propertyName}!</h1>
-        <p>We’re excited to host you. Here’s everything you need for a great stay.</p>
+        <p>We’re thrilled to have you! Here’s all the key information to make your stay smooth and enjoyable..</p>
       </div>
 
       <div style={styles.card}>
