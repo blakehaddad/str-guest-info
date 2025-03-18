@@ -1,10 +1,10 @@
 {
-    "propertyName": "Cozy Mountain Retreat",
-    "checkInTime": "3:00 PM",
-    "checkOutTime": "3:00 PM",
-    "lockboxCode": "1234",
-    "wifiNetwork": "OurAirbnbWiFi",
-    "wifiPassword": "SuperSecure123",
+    "propertyName": "The Lyric",
+    "checkInTime": "4:00 PM",
+    "checkOutTime": "11:00 AM",
+    "lockboxCode": "Available in app",
+    "wifiNetwork": "The Lyric",
+    "wifiPassword": "7930Zenobia",
     "contactNumber": "(555) 123-4567",
     "recommendations": [
       { "name": "Best Coffee Shop", "url": "https://maps.google.com" },
