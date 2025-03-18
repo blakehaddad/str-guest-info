@@ -9,6 +9,7 @@
     "recommendations": [
       { "name": "Best Coffee Shop", "url": "https://maps.google.com" },
       { "name": "Top Brunch Spot", "url": "https://maps.google.com" }
-    ]
+    ],
+    "refreshRateSeconds": 60
   }
   
