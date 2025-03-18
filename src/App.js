@@ -3,25 +3,21 @@ import React, { useEffect, useState } from "react";
 function App() {
   const [config, setConfig] = useState(null);
 
-  const fetchConfig = () => {
-    const configPath = `${process.env.PUBLIC_URL}/config.json`;
-
-    if (config?.propertyName) {
-      document.title = `Welcome to ${config.propertyName}`; // ✅ Updates title dynamically
-    }
-
-    fetch(configPath)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => setConfig(data))
-      .catch((error) => console.error("Error loading config:", error));
-  };
-
   useEffect(() => {
+    const fetchConfig = () => {
+      const configPath = `${process.env.PUBLIC_URL}/config.json`;
+  
+      fetch(configPath)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => setConfig(data))
+        .catch((error) => console.error("Error loading config:", error));
+    };
+  
     fetchConfig(); // Initial fetch
   
     if (config?.refreshRateSeconds) {
@@ -34,8 +30,7 @@ function App() {
         clearInterval(interval); // Ensures old intervals are removed
       };
     }
-  }, [config?.refreshRateSeconds]); // Only runs when refreshRateSeconds changes
-  
+  }, [config?.refreshRateSeconds]); // Only runs when refreshRateSeconds changes  
 
   if (!config) return <div style={styles.loading}>Loading...</div>;
 
