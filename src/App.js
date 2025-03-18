@@ -45,7 +45,7 @@ function App() {
         <p><strong>Password:</strong> {config.wifiPassword}</p>
       </div>
 
-      <div style={styles.card}>
+      {/* <div style={styles.card}>
         <h2>🍽️ Local Recommendations</h2>
         <ul style={styles.list}>
           {(config.recommendations || []).map((place, index) => (
@@ -56,7 +56,7 @@ function App() {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
 
       <div style={styles.footer}>
         <p>📞 Need anything? Contact us: <strong>{contactNumber}</strong>.</p>
